@@ -8,6 +8,8 @@ public interface CustomerService {
 
     public List<Customer> getCustomers();
 
-
     public Customer saveCustomer(Customer customer);
+
+    public Customer getCustomer(Integer theId);
+
 }

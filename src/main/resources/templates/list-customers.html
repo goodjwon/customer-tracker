@@ -23,12 +23,16 @@
                     <th>first name</th>
                     <th>last name</th>
                     <th>email</th>
+                    <th>action</th>
                 </tr>
                 <tr th:each="prod : ${customer}">
                     <td th:text="${prod.getId()}"></td>
                     <td th:text="${prod.getFirstName()}"></td>
                     <td th:text="${prod.getLastName()}"></td>
                     <td th:text="${prod.getEmail()}"></td>
+                    <td>
+                        <a th:href="@{showFormForUpdate(customerId=${prod.getId()})}" th:text="update"></a>
+                    </td>
                 </tr>
             </table>
         </div>
