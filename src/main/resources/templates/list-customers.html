@@ -31,7 +31,8 @@
                     <td th:text="${prod.getLastName()}"></td>
                     <td th:text="${prod.getEmail()}"></td>
                     <td>
-                        <a th:href="@{showFormForUpdate(customerId=${prod.getId()})}" th:text="update"></a>
+                        <a th:href="@{showFormForUpdate(customerId=${prod.getId()})}" th:text="update"></a> |
+                        <a th:href="@{delete(customerId=${prod.getId()})}" th:text="delete"></a>
                     </td>
                 </tr>
             </table>
