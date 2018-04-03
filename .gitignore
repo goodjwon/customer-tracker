@@ -25,6 +25,10 @@ Desktop.ini
 
 #gradle
 .gradle
+.gradle/
+*/gradle
+gradle
+gradlew
 /build/
 
 # Ignore Gradle GUI config
