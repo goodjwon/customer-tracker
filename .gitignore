@@ -20,6 +20,7 @@ Desktop.ini
 */build
 /captures
 /.idea
+/out
 *.iml
 
 
@@ -28,6 +29,7 @@ Desktop.ini
 .gradle/
 */gradle
 gradle
+gradle*
 gradlew
 /build/
 
