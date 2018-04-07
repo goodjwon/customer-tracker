@@ -32,7 +32,8 @@
                     <td th:text="${prod.getEmail()}"></td>
                     <td>
                         <a th:href="@{showFormForUpdate(customerId=${prod.getId()})}" th:text="update"></a> |
-                        <a th:href="@{delete(customerId=${prod.getId()})}" th:text="delete"></a>
+                        <a th:href="@{delete(customerId=${prod.getId()})}" th:text="delete"
+                           onclick="if(!(confirm('사용자를 삭제 하시겠습니까?'))) return false"></a>
                     </td>
                 </tr>
             </table>
