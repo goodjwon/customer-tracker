@@ -8,6 +8,7 @@
 	th:href="@{/css/add-customer-style.css}" />
 </head>
 <body>
+<<<<<<< HEAD
 	<div id="wrapper">
 		<div id="header">
 			<h2>CRM - Customer Relationship Manager</h2>
@@ -45,5 +46,39 @@
         테스트 : <input type = "submit" value = "telNumberCheck"/>
       </form>
 	</div>
+=======
+    <div id="wrapper">
+        <div id="header">
+            <h2>CRM - Customer Relationship Manager</h2>
+        </div>
+    </div>
+    <div id="container">
+        <div id="content">
+            <input type="button" value="Add Customer"
+                   onclick="window.location.href='showFormForAdd'; return false;"
+                   class="add-button"/>
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>first name</th>
+                    <th>last name</th>
+                    <th>email</th>
+                    <th>action</th>
+                </tr>
+                <tr th:each="prod : ${customer}">
+                    <td th:text="${prod.getId()}"></td>
+                    <td th:text="${prod.getFirstName()}"></td>
+                    <td th:text="${prod.getLastName()}"></td>
+                    <td th:text="${prod.getEmail()}"></td>
+                    <td>
+                        <a th:href="@{showFormForUpdate(customerId=${prod.getId()})}" th:text="update"></a> |
+                        <a th:href="@{delete(customerId=${prod.getId()})}" th:text="delete"
+                           onclick="if(!(confirm('사용자를 삭제 하시겠습니까?'))) return false"></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+>>>>>>> eb964551c4329b731fde9e48e3dc5a39c462b189
 </body>
 </html>

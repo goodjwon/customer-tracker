@@ -20,11 +20,17 @@ Desktop.ini
 */build
 /captures
 /.idea
+/out
 *.iml
 
 
 #gradle
 .gradle
+.gradle/
+*/gradle
+/gradlew
+gradle*
+gradlew
 /build/
 
 # Ignore Gradle GUI config

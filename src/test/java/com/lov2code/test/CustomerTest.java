@@ -13,7 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class CustomerTest {
+public class CustomerTest 
+{
 
     @Autowired
     private TestEntityManager entityManager;
@@ -23,7 +24,8 @@ public class CustomerTest {
 
 
     @Test
-    public void testGetCustomers(){
+    public void testGetCustomers()
+    {
         repository.findAll();
     }
 }

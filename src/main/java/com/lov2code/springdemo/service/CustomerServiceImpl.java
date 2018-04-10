@@ -29,4 +29,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomer(Integer theId) { return repository.findOne(theId); }
+
+    @Override
+    public void deletCustomer(Integer thdId) {
+        repository.delete(thdId);
+    }
 }

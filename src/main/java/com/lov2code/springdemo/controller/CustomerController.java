@@ -76,6 +76,7 @@ public class CustomerController
         return "customer-form";
     }
 
+<<<<<<< HEAD
     @RequestMapping("/telValidator")
     @ResponseBody
     public String validationTelNumber(@RequestParam String homeTel, @RequestParam String mobile)
@@ -90,5 +91,13 @@ public class CustomerController
     	result += "Mobile result : " + telNumberValidator.executeTelNumberStrategy(new MobileValidator(), mobile);
     	
     	return param + " " + result;
+=======
+    @GetMapping("/delete")
+    public String deleteCustomer(@RequestParam("customerId") Integer theId){
+
+        service.deletCustomer(theId);
+
+        return "redirect:/customer/list";
+>>>>>>> eb964551c4329b731fde9e48e3dc5a39c462b189
     }
 }
