@@ -60,3 +60,12 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-09-24 21:50:59
+
+
+ALTER TABLE web_customer_tracker.customer add column home_tel varchar(30);
+ALTER TABLE web_customer_tracker.customer add column mobile_tel varchar(30);
+;
+
+UPDATE web_customer_tracker.customer
+SET home_tel = '033-646-8540', mobile_tel = '010-7652-7885'
+where id in ('1','2','3','4','5')

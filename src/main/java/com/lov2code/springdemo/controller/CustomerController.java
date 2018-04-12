@@ -3,20 +3,20 @@ package com.lov2code.springdemo.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lov2code.springdemo.entitiy.Customer;
 import com.lov2code.springdemo.service.CustomerService;
-import com.lov2code.springdemo.validator.HomeTelValidator;
-import com.lov2code.springdemo.validator.MobileValidator;
 import com.lov2code.springdemo.validator.TelNumberValidator;
 
 @Controller
@@ -56,9 +56,14 @@ public class CustomerController
     }
 
     @PostMapping("/saveCustomer")
-    public String saveCustomer(@ModelAttribute("customer") Customer theCustomer){
-
-        service.saveCustomer(theCustomer);
+    public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult bindingResult)
+    {
+    	if (bindingResult.hasErrors()) 
+    	{
+            return "customer-form";
+        }
+        
+    	service.saveCustomer(theCustomer);
 
         return "redirect:/customer/list";
     }
@@ -76,28 +81,11 @@ public class CustomerController
         return "customer-form";
     }
 
-<<<<<<< HEAD
-    @RequestMapping("/telValidator")
-    @ResponseBody
-    public String validationTelNumber(@RequestParam String homeTel, @RequestParam String mobile)
-    {
-    	String param = "";
-    	String result = "";
-    	
-    	param += "Home tel : " + homeTel + " / " + "Mobile : " + mobile + " / ";
-    	
-    	result += "Home Tel result : " + telNumberValidator.executeTelNumberStrategy(new HomeTelValidator(), homeTel);
-    	result += " / ";
-    	result += "Mobile result : " + telNumberValidator.executeTelNumberStrategy(new MobileValidator(), mobile);
-    	
-    	return param + " " + result;
-=======
     @GetMapping("/delete")
     public String deleteCustomer(@RequestParam("customerId") Integer theId){
 
         service.deletCustomer(theId);
 
         return "redirect:/customer/list";
->>>>>>> eb964551c4329b731fde9e48e3dc5a39c462b189
     }
 }

@@ -20,6 +20,8 @@
                 <p> firstName : <input type="text" th:field="*{firstName}" /></p>
                 <p> lastName : <input type="text" th:field="*{lastName}" /></p>
                 <p> email : <input type="text" th:field="*{email}" /></p>
+                <p> home_tel : <input type="text" th:field="*{home_tel}" /></p> <p style="color:red;" th:if="${#fields.hasErrors('home_tel')}" th:errors="*{home_tel}">Home_tel Error</p> 
+                <p> mobile_tel : <input type="text" th:field="*{mobile_tel}" /></p> <p style="color:red;" th:if="${#fields.hasErrors('mobile_tel')}" th:errors="*{mobile_tel}">Mobile_tel Error</p>
                 <p> <input type="submit" value="Save" class="save"/></p>
                 <input type="hidden" th:field="*{id}" />
             </form>

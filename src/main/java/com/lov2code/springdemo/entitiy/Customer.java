@@ -1,6 +1,12 @@
 package com.lov2code.springdemo.entitiy;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "customer")
@@ -18,6 +24,14 @@ public class Customer {
 
     @Column(name="email")
     private String email;
+    
+    @Column(name="home_tel")
+    @Pattern(regexp = "(02|03[1-3]|04[1-4]|05[1-5]|06[1-4])-(\\d{3})-(\\d{4})", message = "Check your home tel number")
+    private String home_tel;
+   
+    @Column(name="mobile_tel")
+    @Pattern(regexp = "(01[01678])-(\\d{4})-(\\d{4})", message = "Check your mobile number")
+    private String mobile_tel;
 
     public Customer() {
     }
@@ -59,14 +73,33 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public String getHome_tel() {
+		return home_tel;
+	}
 
-    @Override
+	public void setHome_tel(String home_tel) {
+		this.home_tel = home_tel;
+	}
+
+	public String getMobile_tel() {
+		return mobile_tel;
+	}
+
+	public void setMobile_tel(String mobile_tel) {
+		this.mobile_tel = mobile_tel;
+	}
+
+	@Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", home_tel='" + home_tel + '\'' +
+                ", mobile_tel='" + mobile_tel + '\'' +
                 '}';
     }
 }
+
