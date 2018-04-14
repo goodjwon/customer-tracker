@@ -69,3 +69,14 @@ ALTER TABLE web_customer_tracker.customer add column mobile_tel varchar(30);
 UPDATE web_customer_tracker.customer
 SET home_tel = '033-646-8540', mobile_tel = '010-7652-7885'
 where id in ('1','2','3','4','5')
+;
+
+ALTER TABLE web_customer_tracker.customer add column user_id varchar(40)
+;
+
+UPDATE web_customer_tracker.customer
+SET user_id = ' green'
+where id in ('1','2','3','4','5')
+;
+;
+
