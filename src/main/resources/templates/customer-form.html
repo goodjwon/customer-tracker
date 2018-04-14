@@ -38,6 +38,7 @@
             <form action="" th:action="@{saveCustomer}" th:object="${customer}" method="post">
 			    <p> User ID  : <input type="text" id="userId" th:field="*{user_id}"/></p>	
 			    <p style="color:red;" id ="resultOfIdCheck"></p>
+			    <p style="color:red;" th:if="${#fields.hasErrors('user_id')}" th:errors="*{user_id}">Home_tel Error</p>
                 <p> firstName : <input type="text" th:field="*{firstName}" /></p>
                 <p> lastName : <input type="text" th:field="*{lastName}" /></p>
                 <p> email : <input type="text" th:field="*{email}" /></p>

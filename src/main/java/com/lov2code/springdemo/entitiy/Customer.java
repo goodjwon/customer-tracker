@@ -34,6 +34,7 @@ public class Customer {
     private String mobile_tel;
 
     @Column(name="user_id")
+    @Pattern(regexp="^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$", message ="Check your user id")
     private String user_id;
     
     public Customer() {
