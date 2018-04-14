@@ -33,6 +33,9 @@ public class Customer {
     @Pattern(regexp = "(01[01678])-(\\d{4})-(\\d{4})", message = "Check your mobile number")
     private String mobile_tel;
 
+    @Column(name="user_id")
+    private String user_id;
+    
     public Customer() {
     }
 
@@ -88,6 +91,14 @@ public class Customer {
 
 	public void setMobile_tel(String mobile_tel) {
 		this.mobile_tel = mobile_tel;
+	}
+	
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	@Override

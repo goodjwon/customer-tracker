@@ -1,5 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- <script>
+	$(document).ready(function() {
+		$('#userId').keypress(
+			$.ajax(
+				url:"/realtimeUserIdCheck",
+				type:'post',
+				data:{"userId":$('#userId').val()},
+				success : function(data){
+	                $("#resultOfIdCheck").html(data);
+	            },
+	            error : function(data){
+	            	 $("#resultOfIdCheck").html(data);
+	            }
+			)
+		);	
+	});
+</script> -->
 <head>
     <meta charset="UTF-8"/>
     <title>Save Customer</title>
@@ -17,6 +36,8 @@
             <h3>Save Customer</h3>
 
             <form action="" th:action="@{saveCustomer}" th:object="${customer}" method="post">
+			    <p> User ID  : <input type="text" id="userId" th:field="*{user_id}"/></p>	
+			    <p style="color:red;" id ="resultOfIdCheck"></p>
                 <p> firstName : <input type="text" th:field="*{firstName}" /></p>
                 <p> lastName : <input type="text" th:field="*{lastName}" /></p>
                 <p> email : <input type="text" th:field="*{email}" /></p>
@@ -25,7 +46,8 @@
                 <p> <input type="submit" value="Save" class="save"/></p>
                 <input type="hidden" th:field="*{id}" />
             </form>
-
+			
+       
             <div style="clear: both;"></div>
             <p>
                 <a href="/customer/list">Back to List</a>
@@ -33,4 +55,25 @@
         </div>
     </div>
 </body>
+
+<script>
+    $('#userId').keyup(function()
+    {
+	    $.ajax
+        ({
+            url:'./realtimeUserIdCheck',
+            type:'get',
+            data:{"userId":$('#userId').val()},
+            success : function(data)
+            {
+                $('#resultOfIdCheck').text(data);
+            },
+            error : function(data)
+            {
+            	$('#resultOfIdCheck').text(data);
+            }
+        })
+    })
+</script>
+
 </html>

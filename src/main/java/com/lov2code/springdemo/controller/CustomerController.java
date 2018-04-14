@@ -2,6 +2,7 @@ package com.lov2code.springdemo.controller;
 
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lov2code.springdemo.entitiy.Customer;
 import com.lov2code.springdemo.service.CustomerService;
@@ -87,5 +89,26 @@ public class CustomerController
         service.deletCustomer(theId);
 
         return "redirect:/customer/list";
+    }
+    
+    @GetMapping("/realtimeUserIdCheck")
+    @ResponseBody
+    public String realtimeUserIdCheck(@RequestParam("userId") String userId)
+    {
+    	if(userIdCheck(userId))
+    	{
+    		return "아이디를 사용하실 수 있습니다.";
+    	}
+    	else
+    	{
+    		return "시작은 영문으로만 가능하며, '영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하의 문자만 가능합니다."; 
+    	}
+    }
+    
+    public boolean userIdCheck(String userId)
+    {
+    	String userIdPattern = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$"; 
+    	
+    	return Pattern.matches(userIdPattern, userId);
     }
 }
