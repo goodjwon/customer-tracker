@@ -1,10 +1,12 @@
 package com.lov2code.springdemo.service;
 
 import com.lov2code.springdemo.dao.CustomerRepository;
+import com.lov2code.springdemo.dto.CustomerDto;
 import com.lov2code.springdemo.entitiy.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,8 +20,22 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getCustomers() {
-        return (List<Customer>) repository.findAll();
+    public List<CustomerDto> getCustomers() {
+
+       List<Customer> customers = (List<Customer>) repository.findAll();
+       List<CustomerDto> result  = new ArrayList<>();
+
+       for(Customer customer:customers){
+           CustomerDto dto = new CustomerDto();
+           dto.setFirstName(customer.getFirstName());
+           dto.setEmail(customer.getEmail());
+           dto.setHome_tel(customer.getHome_tel());
+           dto.setLastName(customer.getLastName());
+           dto.setUser_id(customer.getUser_id());
+           result.add(dto);
+       }
+
+       return result;
     }
 
     @Override
