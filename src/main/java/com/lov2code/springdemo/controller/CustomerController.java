@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
+import com.lov2code.springdemo.dto.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class CustomerController
     @GetMapping("/list")
     public String listCustomers(Model model) {
 
-        List<Customer> theCustomers = service.getCustomers();
+        List<CustomerDto> theCustomers = service.getCustomers();
 
         model.addAttribute("customer", theCustomers);
 
