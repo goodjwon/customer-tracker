@@ -32,6 +32,8 @@ public class CustomerServiceImpl implements CustomerService {
            dto.setHome_tel(customer.getHome_tel());
            dto.setLastName(customer.getLastName());
            dto.setUser_id(customer.getUser_id());
+           dto.setId(customer.getId());
+
            result.add(dto);
        }
 
