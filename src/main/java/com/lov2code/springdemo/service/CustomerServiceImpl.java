@@ -20,24 +20,24 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> getCustomers() {
+    public List<Customer> getCustomers() {
 
-       List<Customer> customers = (List<Customer>) repository.findAll();
-       List<CustomerDto> result  = new ArrayList<>();
+//       List<Customer> customers = (List<Customer>) repository.findAll();
+//       List<CustomerDto> result  = new ArrayList<>();
 
-       for(Customer customer:customers){
-           CustomerDto dto = new CustomerDto();
-           dto.setFirstName(customer.getFirstName());
-           dto.setEmail(customer.getEmail());
-           dto.setHome_tel(customer.getHome_tel());
-           dto.setLastName(customer.getLastName());
-           dto.setUser_id(customer.getUser_id());
-           dto.setId(customer.getId());
+//       for(Customer customer:customers){
+//           CustomerDto dto = new CustomerDto();
+//           dto.setFirstName(customer.getFirstName());
+//           dto.setEmail(customer.getEmail());
+//           dto.setHome_tel(customer.getHome_tel());
+//           dto.setLastName(customer.getLastName());
+//           dto.setUser_id(customer.getUser_id());
+//           dto.setId(customer.getId());
+//
+//           result.add(dto);
+//       }
 
-           result.add(dto);
-       }
-
-       return result;
+       return (List<Customer>) repository.findAll();
     }
 
     @Override

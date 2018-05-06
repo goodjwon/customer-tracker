@@ -1,12 +1,14 @@
 package com.lov2code.springdemo.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
 import com.lov2code.springdemo.dto.CustomerDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,9 @@ import com.lov2code.springdemo.validator.TelNumberValidator;
 public class CustomerController 
 {
     private CustomerService service;
+
+
+    private ModelMapper modelMapper;
     
     @Autowired
     private TelNumberValidator telNumberValidator;
@@ -39,9 +44,16 @@ public class CustomerController
     @GetMapping("/list")
     public String listCustomers(Model model) {
 
-        List<CustomerDto> theCustomers = service.getCustomers();
+        List<Customer> theCustomers = service.getCustomers();
 
-        model.addAttribute("customer", theCustomers);
+        List<CustomerDto> result  = new ArrayList<>();
+
+
+        for(Customer customer:theCustomers){
+           result.add(convertToDto(customer));
+       }
+
+        model.addAttribute("customer", result);
 
 
         return "list-customers";
@@ -111,5 +123,23 @@ public class CustomerController
     	String userIdPattern = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$"; 
     	
     	return Pattern.matches(userIdPattern, userId);
+    }
+
+    /**
+     * 이거 위치를 어떻게 해야하니..
+     * 1. 컨트롤러에 위치
+     * 2. 각 엔티티나 Dto에 위치
+     * 3. 서비스에 위치..
+     * @param dto
+     * @return
+     */
+    private Customer convertToEntity(CustomerDto dto){
+        ModelMapper modelMapper = new ModelMapper();
+        return  modelMapper.map(dto, Customer.class);
+    }
+
+    private CustomerDto convertToDto(Customer customer){
+        ModelMapper modelMapper = new ModelMapper();
+        return  modelMapper.map(customer, CustomerDto.class);
     }
 }

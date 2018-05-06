@@ -1,5 +1,8 @@
 package com.lov2code.springdemo.entitiy;
 
+import lombok.Builder;
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "customer")
+@Getter
 public class Customer {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,48 +44,15 @@ public class Customer {
     public Customer() {
     }
 
+    @Builder
     public Customer(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public int getId() {
-        return id;
-    }
 
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-
-    public String getLastName() {
-        return lastName;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-
-    public String getHome_tel() {
-		return home_tel;
-	}
-
-
-	public String getMobile_tel() {
-		return mobile_tel;
-	}
-
-
-	public String getUser_id() {
-		return user_id;
-	}
-
-
-	@Override
+    @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
