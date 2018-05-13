@@ -1,13 +1,11 @@
 package com.lov2code.springdemo.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
-import com.lov2code.springdemo.dto.CustomerDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,126 +18,114 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lov2code.springdemo.dto.CustomerDto;
 import com.lov2code.springdemo.entitiy.Customer;
 import com.lov2code.springdemo.service.CustomerService;
-import com.lov2code.springdemo.validator.TelNumberValidator;
+import com.lov2code.springdemo.validator.BindingValidationResult;
+import com.lov2code.springdemo.validator.CustomerValidator;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController 
 {
-    private CustomerService service;
+	private CustomerService service;
+	private ModelMapper modelMapper;
 
+	@Autowired
+	private CustomerValidator customerValidator;
+	
+	@Autowired
+	public void setRepository(CustomerService service) 
+	{
+		this.service = service;
+	}
 
-    private ModelMapper modelMapper;
-    
-    @Autowired
-    private TelNumberValidator telNumberValidator;
+	@GetMapping("/list")
+	public String listCustomers(Model model) 
+	{
+		List<Customer> theCustomers = service.getCustomers();
 
-    @Autowired
-    public void setRepository(CustomerService service) {
-        this.service = service;
-    }
+		List<CustomerDto> result = new ArrayList<>();
 
-    @GetMapping("/list")
-    public String listCustomers(Model model) {
+		for (Customer customer : theCustomers) 
+		{
+			result.add(convertToDto(customer));
+		}
 
-        List<Customer> theCustomers = service.getCustomers();
+		model.addAttribute("customer", result);
 
-        List<CustomerDto> result  = new ArrayList<>();
+		return "list-customers";
+	}
 
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model model) 
+	{
+		Customer theCustomer = new Customer();
 
-        for(Customer customer:theCustomers){
-           result.add(convertToDto(customer));
-       }
+		model.addAttribute("customer", theCustomer);
 
-        model.addAttribute("customer", result);
+		return "customer-form";
+	}
 
+	@PostMapping("/saveCustomer")
+	public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult bindingResult) 
+	{
+		if (bindingResult.hasErrors()) 
+		{
+			return "customer-form";
+		}
 
-        return "list-customers";
-    }
+		service.saveCustomer(theCustomer);
 
-    @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model model){
+		return "redirect:/customer/list";
+	}
 
-        Customer theCustomer = new Customer();
+	@GetMapping("/showFormForUpdate")
+	public String showFormForUpdate(@RequestParam("customerId") Integer theId, Model theModel) 
+	{
+		// get hte customer from the database
+		Customer theCustomer = service.getCustomer(theId);
 
-        model.addAttribute("customer", theCustomer);
+		// set customer as a model attribute to pre-populate the form
+		theModel.addAttribute("customer", theCustomer);
 
+		// send over to our form
+		return "customer-form";
+	}
 
-        return "customer-form";
-    }
+	@GetMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") Integer theId) 
+	{
+		service.deletCustomer(theId);
 
-    @PostMapping("/saveCustomer")
-    public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult bindingResult)
-    {
-    	if (bindingResult.hasErrors()) 
-    	{
-            return "customer-form";
-        }
-        
-    	service.saveCustomer(theCustomer);
+		return "redirect:/customer/list";
+	}
 
-        return "redirect:/customer/list";
-    }
+	@GetMapping("/realtimeUserIdCheck")
+	@ResponseBody
+	public String realtimeUserIdCheck(@RequestParam("userId") String userId) 
+	{
+		BindingValidationResult userValidationResult = customerValidator.isUserIdCorrect(userId);
 
-    @GetMapping("/showFormForUpdate")
-    public String showFormForUpdate(@RequestParam("customerId") Integer theId, Model theModel){
+		return userValidationResult.getValidationMessage();
+	}
 
-        //get hte customer from the database
-        Customer theCustomer = service.getCustomer(theId);
+	/**
+	 * 이거 위치를 어떻게 해야하니.. 
+	 * 1. 컨트롤러에 위치 
+	 * 2. 각 엔티티나 Dto에 위치 
+	 * 3. 서비스에 위치..
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	private Customer convertToEntity(CustomerDto dto) {
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(dto, Customer.class);
+	}
 
-        //set customer as a model attribute to pre-populate the form
-        theModel.addAttribute("customer", theCustomer);
-
-        //send over to our form
-        return "customer-form";
-    }
-
-    @GetMapping("/delete")
-    public String deleteCustomer(@RequestParam("customerId") Integer theId){
-
-        service.deletCustomer(theId);
-
-        return "redirect:/customer/list";
-    }
-    
-    @GetMapping("/realtimeUserIdCheck")
-    @ResponseBody
-    public String realtimeUserIdCheck(@RequestParam("userId") String userId)
-    {
-    	if(userIdCheck(userId))
-    	{
-    		return "아이디를 사용하실 수 있습니다.";
-    	}
-    	else
-    	{
-    		return "시작은 영문으로만 가능하며, '영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하의 문자만 가능합니다."; 
-    	}
-    }
-    
-    public boolean userIdCheck(String userId)
-    {
-    	String userIdPattern = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$"; 
-    	
-    	return Pattern.matches(userIdPattern, userId);
-    }
-
-    /**
-     * 이거 위치를 어떻게 해야하니..
-     * 1. 컨트롤러에 위치
-     * 2. 각 엔티티나 Dto에 위치
-     * 3. 서비스에 위치..
-     * @param dto
-     * @return
-     */
-    private Customer convertToEntity(CustomerDto dto){
-        ModelMapper modelMapper = new ModelMapper();
-        return  modelMapper.map(dto, Customer.class);
-    }
-
-    private CustomerDto convertToDto(Customer customer){
-        ModelMapper modelMapper = new ModelMapper();
-        return  modelMapper.map(customer, CustomerDto.class);
-    }
+	private CustomerDto convertToDto(Customer customer) {
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(customer, CustomerDto.class);
+	}
 }

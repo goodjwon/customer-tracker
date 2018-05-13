@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 # Created by https://www.gitignore.io/api/java,gradle,eclipse,intellij
 
 ### Eclipse ###
@@ -157,42 +156,6 @@ hs_err_pid*
 **/build/
 gradle/
 .idea/
-=======
-# fuck you to windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# fuck you to mac
-.DS_Store
-.AppleDouble
-.LSOverride
-
-###IntelliJ###
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# and fuck you to android studio
-.gradle
-/local.properties
-*/build
-/captures
-/.idea
-/out
-*.iml
-
-
-#gradle
-.gradle
-.gradle/
-*/gradle
-/gradlew
-gradle*
-gradlew
-/build/
->>>>>>> Stashed changes
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -206,13 +169,5 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
-<<<<<<< Updated upstream
 
 # End of https://www.gitignore.io/api/java,gradle,eclipse,intellij
-=======
-.project
-.settings/
-bin/
-gradle/
-.classpath
->>>>>>> Stashed changes

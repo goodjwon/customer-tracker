@@ -8,8 +8,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomerDto {
-
+public class CustomerDto 
+{
     private int id;
     private String firstName;
     private String lastName;
@@ -18,11 +18,11 @@ public class CustomerDto {
     private String mobile_tel;
     private String user_id;
 
-    public CustomerDto() {
-    }
+    public CustomerDto() {}
 
     @Builder
-    public CustomerDto(int id, String firstName, String lastName, String email, String home_tel, String mobile_tel, String user_id) {
+    public CustomerDto(int id, String firstName, String lastName, String email, String home_tel, String mobile_tel, String user_id) 
+    {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,17 +32,19 @@ public class CustomerDto {
         this.user_id = user_id;
     }
 
-    public Customer toEntity(){
+    public Customer toEntity()
+    {
         return null;
-
     }
 
-    public CustomerDto toDto(Customer customer){
+    public CustomerDto toDto(Customer customer)
+    {
         return null;
     }
 
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "CustomerDto{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +

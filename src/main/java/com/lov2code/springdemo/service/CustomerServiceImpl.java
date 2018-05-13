@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> getCustomers() {
 
-//       List<Customer> customers = (List<Customer>) repository.findAll();
+       List<Customer> customers = (List<Customer>) repository.findAll();
 //       List<CustomerDto> result  = new ArrayList<>();
 
 //       for(Customer customer:customers){

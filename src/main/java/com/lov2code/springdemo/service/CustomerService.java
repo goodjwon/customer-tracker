@@ -1,9 +1,8 @@
 package com.lov2code.springdemo.service;
 
-import com.lov2code.springdemo.dto.CustomerDto;
-import com.lov2code.springdemo.entitiy.Customer;
-
 import java.util.List;
+
+import com.lov2code.springdemo.entitiy.Customer;
 
 public interface CustomerService {
 

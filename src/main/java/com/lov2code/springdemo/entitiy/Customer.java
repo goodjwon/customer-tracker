@@ -1,8 +1,5 @@
 package com.lov2code.springdemo.entitiy;
 
-import lombok.Builder;
-import lombok.Getter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "customer")
+@Setter
 @Getter
 public class Customer {
 
