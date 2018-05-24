@@ -75,7 +75,7 @@ ALTER TABLE web_customer_tracker.customer add column user_id varchar(40)
 ;
 
 UPDATE web_customer_tracker.customer
-SET user_id = ' green'
+SET user_id = 'green'
 where id in ('1','2','3','4','5')
 ;
 ;
